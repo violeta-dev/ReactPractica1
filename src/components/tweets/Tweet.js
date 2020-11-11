@@ -7,7 +7,7 @@ import './Tweet.css';
 const Tweet = ({ user, createdAt, content }) => (
   <li className="tweet bordered">
     <div className="left">
-      <Photo src={defaultPhoto} />
+      <Photo src={defaultPhoto} className="tweet-photo" />
     </div>
     <div className="right">
       <div className="tweet-header">
