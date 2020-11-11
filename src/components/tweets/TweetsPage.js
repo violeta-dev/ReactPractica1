@@ -1,13 +1,7 @@
 import React from 'react';
 
 import { getLatestTweets } from '../../api/tweets';
-
-const Tweet = ({ tweet }) => (
-  <li>
-    <div>{tweet.content}</div>
-    <div>{tweet.userId}</div>
-  </li>
-);
+import Tweet from './Tweet';
 
 class TweetsPage extends React.Component {
   state = {
@@ -25,7 +19,7 @@ class TweetsPage extends React.Component {
       tweets && (
         <ul>
           {tweets.map(tweet => (
-            <Tweet key={tweet.id} tweet={tweet} />
+            <Tweet key={tweet.id} {...tweet} />
           ))}
         </ul>
       )
