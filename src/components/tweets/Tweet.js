@@ -1,4 +1,5 @@
 import React from 'react';
+import T from 'prop-types';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 import defaultPhoto from '../../assets/default_profile.png';
@@ -26,5 +27,16 @@ const Tweet = ({ user, createdAt, content }) => (
     </div>
   </article>
 );
+
+Tweet.propTypes = {
+  user: T.shape({ name: T.string.isRequired, username: T.string.isRequired })
+    .isRequired,
+  createdAt: T.string.isRequired,
+  content: T.string,
+};
+
+Tweet.defaultProps = {
+  content: 'Nothing here!',
+};
 
 export default Tweet;
