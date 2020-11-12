@@ -3,6 +3,7 @@ import T from 'prop-types';
 
 import Button from '../shared/Button';
 import FormField from '../shared/FormField';
+import { login } from '../../api/auth';
 
 import './LoginPage.css';
 
@@ -12,6 +13,8 @@ class LoginPage extends React.Component {
       email: '',
       password: '',
     },
+    submitting: false,
+    error: null,
   };
 
   handleChange = event => {
@@ -20,22 +23,37 @@ class LoginPage extends React.Component {
     }));
   };
 
+  handleSubmit = async event => {
+    const { form: crendentials } = this.state;
+    event.preventDefault();
+    this.setState({ submitting: true });
+    try {
+      const loggedUserId = await login(crendentials);
+      this.setState({ submitting: false, error: null });
+      console.log(loggedUserId);
+    } catch (error) {
+      this.setState({ submitting: false, error });
+    }
+  };
+
   canSubmit = () => {
     const {
       form: { email, password },
+      submitting,
     } = this.state;
-    return email && password;
+    return !submitting && email && password;
   };
 
   render() {
     const {
       form: { email, password },
+      error,
     } = this.state;
 
     return (
       <div className="loginPage">
         <h1 className="loginPage-title">Log in to Twitter</h1>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <FormField
             type="text"
             name="email"
@@ -61,6 +79,7 @@ class LoginPage extends React.Component {
             Log in
           </Button>
         </form>
+        {error && <div className="loginPage-error">{error.message}</div>}
       </div>
     );
   }
