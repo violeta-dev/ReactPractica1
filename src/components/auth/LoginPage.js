@@ -24,17 +24,22 @@ class LoginPage extends React.Component {
   };
 
   handleSubmit = async event => {
+    const { onLogin } = this.props;
     const { form: crendentials } = this.state;
     event.preventDefault();
     this.setState({ submitting: true });
     try {
       const loggedUserId = await login(crendentials);
       this.setState({ submitting: false, error: null });
-      console.log(loggedUserId);
+      onLogin(loggedUserId);
     } catch (error) {
       this.setState({ submitting: false, error });
     }
   };
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
 
   canSubmit = () => {
     const {
@@ -84,5 +89,9 @@ class LoginPage extends React.Component {
     );
   }
 }
+
+LoginPage.propTypes = {
+  onLogin: T.func.isRequired,
+};
 
 export default LoginPage;
