@@ -15,7 +15,7 @@ class TweetsPage extends React.Component {
   };
 
   componentDidMount() {
-    // this.getTweets();
+    this.getTweets();
   }
 
   renderContent = () => {

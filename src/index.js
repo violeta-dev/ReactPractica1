@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import { BrowserRouter } from 'react-router-dom';
 
+import App from './components/App';
 import storage from './utils/storage';
 import { configureClient } from './api/client';
 
@@ -12,6 +13,8 @@ const auth = storage.get('auth') || { id: null, accessToken: null };
 configureClient(auth.accessToken);
 
 ReactDOM.render(
-  <App initiallyLooggedUserId={auth.id} />,
+  <BrowserRouter>
+    <App initiallyLooggedUserId={auth.id} />
+  </BrowserRouter>,
   document.getElementById('root')
 );
