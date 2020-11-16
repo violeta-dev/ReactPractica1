@@ -1,10 +1,12 @@
 import React from 'react';
+import T from 'prop-types';
+
 import TweetsPage from '../tweets/TweetsPage';
 import LoginPage from '../auth/LoginPage';
 
 class App extends React.Component {
   state = {
-    loggedUserId: null,
+    loggedUserId: this.props.initiallyLooggedUserId,
   };
 
   handleLogin = loggedUserId => this.setState({ loggedUserId });
@@ -22,5 +24,9 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  initiallyLooggedUserId: T.string,
+};
 
 export default App;

@@ -29,4 +29,10 @@ client.interceptors.response.use(
   }
 );
 
+export const configureClient = accessToken => {
+  if (accessToken) {
+    setAuthorizationHeader(accessToken);
+  }
+};
+
 export default client;
