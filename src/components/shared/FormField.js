@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import './FormField.css';
 
 class FormField extends React.Component {
+  inputRef = React.createRef();
   state = { focus: false };
 
   handleFocus = ev => {
@@ -19,6 +20,10 @@ class FormField extends React.Component {
     if (onBlur) onBlur(ev);
   };
 
+  componentDidMount() {
+    this.inputRef.current.focus();
+  }
+
   render() {
     const { className, label, ...props } = this.props;
     const { focus } = this.state;
@@ -27,7 +32,7 @@ class FormField extends React.Component {
         className={classNames(
           'formField',
           { 'formField--focused': focus },
-          className,
+          className
         )}
       >
         <label className="formField-label">
@@ -38,6 +43,7 @@ class FormField extends React.Component {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
             autoComplete="off"
+            ref={this.inputRef}
           ></input>
         </label>
       </div>

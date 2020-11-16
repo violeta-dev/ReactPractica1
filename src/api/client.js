@@ -19,6 +19,7 @@ client.login = credentials =>
 client.interceptors.response.use(
   response => response.data,
   error => {
+    console.log(error);
     if (!error.response) {
       return Promise.reject({ message: error.message });
     }
