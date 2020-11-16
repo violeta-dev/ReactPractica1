@@ -15,7 +15,7 @@ class App extends React.Component {
     loggedUserId: this.props.initiallyLooggedUserId,
   };
 
-  handleLogin = loggedUserId => this.setState({ loggedUserId });
+  handleLogin = (loggedUserId, cb) => this.setState({ loggedUserId }, cb);
 
   componentDidMount() {
     // console.log(this.tweetsPageRef);
@@ -35,7 +35,9 @@ class App extends React.Component {
           </PrivateRoute>
           <Route path="/tweet/:tweetId" exact component={TweetPage} />
           <Route path="/login" exact>
-            {() => <LoginPage onLogin={this.handleLogin} />}
+            {({ history }) => (
+              <LoginPage onLogin={this.handleLogin} history={history} />
+            )}
           </Route>
           <Route path="/404" exact>
             <div

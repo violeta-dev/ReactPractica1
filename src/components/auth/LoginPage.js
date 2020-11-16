@@ -1,5 +1,6 @@
 import React from 'react';
 import T from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import Button from '../shared/Button';
 import FormField from '../shared/FormField';
@@ -24,14 +25,14 @@ class LoginPage extends React.Component {
   };
 
   handleSubmit = async event => {
-    const { onLogin } = this.props;
+    const { onLogin, history } = this.props;
     const { form: crendentials } = this.state;
     event.preventDefault();
     this.setState({ submitting: true });
     try {
       const loggedUserId = await login(crendentials);
       this.setState({ submitting: false, error: null });
-      onLogin(loggedUserId);
+      onLogin(loggedUserId, () => history.push('/tweet'));
     } catch (error) {
       this.setState({ submitting: false, error });
     }
