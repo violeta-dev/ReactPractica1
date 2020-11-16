@@ -5,6 +5,8 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import TweetsPage from '../tweets/TweetsPage';
 import TweetPage from '../tweets/TweetPage';
 import LoginPage from '../auth/LoginPage';
+import NewTweetPage from '../tweets/NewTweetPage';
+import PrivateRoute from '../auth/PrivateRoute';
 
 class App extends React.Component {
   tweetsPageRef = React.createRef();
@@ -23,14 +25,14 @@ class App extends React.Component {
   }
 
   render() {
-    // const { loggedUserId } = this.state;
+    const { loggedUserId } = this.state;
     return (
       <div className="App">
         <Switch>
           <Route path="/" exact component={TweetsPage} />
-          <Route path="/tweet" exact>
-            Tweet
-          </Route>
+          <PrivateRoute path="/tweet" exact isLogged={!!loggedUserId}>
+            <NewTweetPage />
+          </PrivateRoute>
           <Route path="/tweet/:tweetId" exact component={TweetPage} />
           <Route path="/login" exact>
             {() => <LoginPage onLogin={this.handleLogin} />}
