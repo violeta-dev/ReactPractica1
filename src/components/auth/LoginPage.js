@@ -1,6 +1,5 @@
 import React from 'react';
 import T from 'prop-types';
-import { withRouter } from 'react-router-dom';
 
 import Button from '../shared/Button';
 import FormField from '../shared/FormField';

@@ -17,6 +17,8 @@ class App extends React.Component {
 
   handleLogin = (loggedUserId, cb) => this.setState({ loggedUserId }, cb);
 
+  handleLogout = () => this.setState({ loggedUserId: null });
+
   componentDidMount() {
     // console.log(this.tweetsPageRef);
     // if (this.tweetsPageRef.current) {
@@ -29,7 +31,12 @@ class App extends React.Component {
     return (
       <div className="App">
         <Switch>
-          <Route path="/" exact component={TweetsPage} />
+          <Route path="/" exact>
+            <TweetsPage
+              isLogged={!!loggedUserId}
+              onLogout={this.handleLogout}
+            />
+          </Route>
           <PrivateRoute path="/tweet" exact isLogged={!!loggedUserId}>
             <NewTweetPage />
           </PrivateRoute>

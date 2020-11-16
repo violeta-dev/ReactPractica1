@@ -8,3 +8,8 @@ export const login = crendentials =>
     storage.set('auth', { id, accessToken });
     return auth.id;
   });
+
+export const logout = () =>
+  client.logout().then(() => {
+    storage.remove('auth');
+  });
