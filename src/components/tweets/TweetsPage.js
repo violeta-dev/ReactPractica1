@@ -19,12 +19,15 @@ class TweetsPage extends React.Component {
   }
 
   renderContent = () => {
+    const { history } = this.props;
     const { tweets } = this.state;
 
     if (!tweets) {
       return null;
     }
-    return tweets.map(tweet => <Tweet key={tweet.id} {...tweet} />);
+    return tweets.map(tweet => (
+      <Tweet key={tweet.id} {...tweet} history={history} />
+    ));
   };
 
   render() {

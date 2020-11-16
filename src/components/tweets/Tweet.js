@@ -6,8 +6,11 @@ import defaultPhoto from '../../assets/default_profile.png';
 import Photo from '../shared/Photo';
 import './Tweet.css';
 
-const Tweet = ({ user, createdAt, content }) => (
-  <article className="tweet bordered">
+const Tweet = ({ user, createdAt, content, history, id }) => (
+  <article
+    className="tweet bordered"
+    onClick={() => history.push(`/tweet/${id}`)}
+  >
     <div className="left">
       <Photo src={defaultPhoto} className="tweet-photo" />
     </div>

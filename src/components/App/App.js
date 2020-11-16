@@ -3,6 +3,7 @@ import T from 'prop-types';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import TweetsPage from '../tweets/TweetsPage';
+import TweetPage from '../tweets/TweetPage';
 import LoginPage from '../auth/LoginPage';
 
 class App extends React.Component {
@@ -30,9 +31,7 @@ class App extends React.Component {
           <Route path="/tweet" exact>
             Tweet
           </Route>
-          <Route path="/tweet/:tweetId" exact>
-            Tweet detail
-          </Route>
+          <Route path="/tweet/:tweetId" exact component={TweetPage} />
           <Route path="/login" exact>
             {() => <LoginPage onLogin={this.handleLogin} />}
           </Route>
