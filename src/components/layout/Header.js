@@ -6,6 +6,7 @@ import { logout } from '../../api/auth';
 import { ReactComponent as Icon } from '../../assets/twitter.svg';
 import './Header.css';
 import Button from '../shared/Button';
+import { AuthContext } from '../App/App';
 
 const Header = ({ className, isLogged, onLogout, ...props }) => (
   <header className={classNames('header', className)} {...props}>
@@ -34,4 +35,12 @@ const Header = ({ className, isLogged, onLogout, ...props }) => (
   </header>
 );
 
-export default Header;
+const ConnectedToAuthHeader = props => (
+  <AuthContext.Consumer>
+    {({ isLogged, onLogout }) => (
+      <Header {...props} isLogged={isLogged} onLogout={onLogout} />
+    )}
+  </AuthContext.Consumer>
+);
+
+export default ConnectedToAuthHeader;
