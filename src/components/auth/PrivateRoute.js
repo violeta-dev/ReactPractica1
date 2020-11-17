@@ -1,15 +1,15 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import { AuthContext } from '../App/App';
+import { AuthContextConsumer } from './context';
 
 const PrivateRoute = ({ isLogged, ...props }) =>
   isLogged ? <Route {...props} /> : <Redirect to="/login" />;
 
-export const ConnectedToAuthHeaderPrivateRoute = props => (
-  <AuthContext.Consumer>
+export const ConnectedToAuthPrivateRoute = props => (
+  <AuthContextConsumer>
     {value => <PrivateRoute {...props} isLogged={value.isLogged} />}
-  </AuthContext.Consumer>
+  </AuthContextConsumer>
 );
 
-export default ConnectedToAuthHeaderPrivateRoute;
+export default ConnectedToAuthPrivateRoute;

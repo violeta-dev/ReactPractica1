@@ -7,8 +7,7 @@ import TweetPage from '../tweets/TweetPage';
 import LoginPage from '../auth/LoginPage';
 import NewTweetPage from '../tweets/NewTweetPage';
 import PrivateRoute from '../auth/PrivateRoute';
-
-export const AuthContext = React.createContext();
+import { AuthContextProvider } from '../auth/context';
 
 class App extends React.Component {
   tweetsPageRef = React.createRef();
@@ -31,7 +30,7 @@ class App extends React.Component {
   render() {
     const { loggedUserId } = this.state;
     return (
-      <AuthContext.Provider
+      <AuthContextProvider
         value={{
           isLogged: !!loggedUserId,
           onLogin: this.handleLogin,
@@ -68,7 +67,7 @@ class App extends React.Component {
             </Route>
           </Switch>
         </div>
-      </AuthContext.Provider>
+      </AuthContextProvider>
     );
   }
 }
