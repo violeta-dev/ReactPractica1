@@ -4,19 +4,35 @@ import Layout from '../layout';
 import { Button, Photo, Textarea } from '../shared';
 import defaultPhoto from '../../assets/default_profile.png';
 
+import { createTweet } from '../../api/tweets';
+
 import './NewTweetPage.css';
+import { Redirect } from 'react-router-dom';
 
 const MAX_CHARACTERS = 280;
 
 class NewTweetPage extends React.Component {
   state = {
     tweet: { content: '' },
+    error: null,
+    createdTweetId: null,
   };
 
   textAreaRef = React.createRef();
 
   handleChange = ({ target: { value } }) => {
     this.setState({ tweet: { content: value } });
+  };
+
+  handleSubmit = async ev => {
+    const { tweet } = this.state;
+    ev.preventDefault();
+    try {
+      const createdTweet = await createTweet(tweet);
+      this.setState({ createdTweetId: createdTweet.id });
+    } catch (error) {
+      this.setState({ error });
+    }
   };
 
   componentDidMount() {
@@ -26,7 +42,13 @@ class NewTweetPage extends React.Component {
   render() {
     const {
       tweet: { content },
+      createdTweetId,
     } = this.state;
+
+    if (createdTweetId) {
+      return <Redirect to={`/tweet/${createdTweetId}`} />;
+    }
+
     return (
       <Layout title="What are you thinking?">
         <div
@@ -37,7 +59,7 @@ class NewTweetPage extends React.Component {
             <Photo src={defaultPhoto} alt="" />
           </div>
           <div className="right">
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <Textarea
                 className="newTweetPage-textarea"
                 placeholder="Hey! What's up!"
@@ -52,7 +74,7 @@ class NewTweetPage extends React.Component {
                   type="submit"
                   className="newTweetPage-submit"
                   variant="primary"
-                  disabled
+                  disabled={!content}
                 >
                   Let's go!
                 </Button>
