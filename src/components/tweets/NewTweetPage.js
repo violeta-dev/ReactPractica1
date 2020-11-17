@@ -9,7 +9,24 @@ import './NewTweetPage.css';
 const MAX_CHARACTERS = 280;
 
 class NewTweetPage extends React.Component {
+  state = {
+    tweet: { content: '' },
+  };
+
+  textAreaRef = React.createRef();
+
+  handleChange = ({ target: { value } }) => {
+    this.setState({ tweet: { content: value } });
+  };
+
+  componentDidMount() {
+    this.textAreaRef.current.focus();
+  }
+
   render() {
+    const {
+      tweet: { content },
+    } = this.state;
     return (
       <Layout title="What are you thinking?">
         <div
@@ -21,9 +38,16 @@ class NewTweetPage extends React.Component {
           </div>
           <div className="right">
             <form>
-              <Textarea />
+              <Textarea
+                className="newTweetPage-textarea"
+                placeholder="Hey! What's up!"
+                maxLength={MAX_CHARACTERS}
+                value={content}
+                onChange={this.handleChange}
+                ref={this.textAreaRef}
+              />
               <div className="newTweetPage-footer">
-                <span className="newTweetPage-characters">{`155 / ${MAX_CHARACTERS}`}</span>
+                <span className="newTweetPage-characters">{`${content.length} / ${MAX_CHARACTERS}`}</span>
                 <Button
                   type="submit"
                   className="newTweetPage-submit"
