@@ -32,10 +32,13 @@ class App extends React.Component {
       <div className="App">
         <Switch>
           <Route path="/" exact>
-            <TweetsPage
-              isLogged={!!loggedUserId}
-              onLogout={this.handleLogout}
-            />
+            {({ history }) => (
+              <TweetsPage
+                isLogged={!!loggedUserId}
+                onLogout={this.handleLogout}
+                history={history}
+              />
+            )}
           </Route>
           <PrivateRoute path="/tweet" exact isLogged={!!loggedUserId}>
             <NewTweetPage />

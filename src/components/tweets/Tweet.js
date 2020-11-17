@@ -36,6 +36,7 @@ Tweet.propTypes = {
     .isRequired,
   createdAt: T.string.isRequired,
   content: T.string,
+  history: T.shape({ push: T.func.isRequired }).isRequired,
 };
 
 Tweet.defaultProps = {
