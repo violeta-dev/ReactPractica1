@@ -1,36 +1,42 @@
 import React from 'react';
+import AdvertsPage from '../adverts/AdvertsPage';
+import LoginPage from '../auth/LoginPage';
 import T from 'prop-types';
 import { Redirect, Route, Switch } from 'react-router-dom';
-
-import TweetsPage from '../tweets/TweetsPage';
-import TweetPage from '../tweets/TweetPage';
-import LoginPage from '../auth/LoginPage';
-import NewTweetPage from '../tweets/NewTweetPage';
+import AdvertPage from '../adverts/AdvertPage'
+import NewAdvertPage from '../adverts/NewAdvertPage';
 import PrivateRoute from '../auth/PrivateRoute';
-import { AuthContextProvider } from '../auth/context';
+export const AuthContext = React.createContext();
+
+
 
 class App extends React.Component {
-  tweetsPageRef = React.createRef();
+  advertsPageRef = React.createRef();
   loginPageRef = React.createRef();
   state = {
     loggedUserId: this.props.initiallyLooggedUserId,
   };
 
-  handleLogin = (loggedUserId, cb) => this.setState({ loggedUserId }, cb);
+ // handleLogin = loggedUserId => this.setState({ loggedUserId });
+ handleLogin = (loggedUserId, cb) => this.setState({ loggedUserId }, cb);
 
-  handleLogout = () => this.setState({ loggedUserId: null });
+ handleLogout = () => this.setState({ loggedUserId: null });
+
 
   componentDidMount() {
-    // console.log(this.tweetsPageRef);
-    // if (this.tweetsPageRef.current) {
-    //   this.tweetsPageRef.current.getTweets();
-    // }
+    /*console.log(this.advertsPageRef);
+    if (this.advertsPageRef.current) {
+      this.advertsPageRef.current.getAdverts();
+    }*/
   }
+
+
 
   render() {
     const { loggedUserId } = this.state;
+
     return (
-      <AuthContextProvider
+      <AuthContext.Provider
         value={{
           isLogged: !!loggedUserId,
           onLogin: this.handleLogin,
@@ -39,13 +45,16 @@ class App extends React.Component {
       >
         <div className="App">
           <Switch>
-            <Route path="/" exact>
-              {({ history }) => <TweetsPage history={history} />}
-            </Route>
-            <PrivateRoute path="/tweet" exact>
-              <NewTweetPage />
+            <PrivateRoute path="/" exact>
+              {({ history }) => <AdvertsPage history={history} />}
             </PrivateRoute>
-            <Route path="/tweet/:tweetId" exact component={TweetPage} />
+            <PrivateRoute path="/adverts" exact>
+              <AdvertsPage />
+            </PrivateRoute>
+            <PrivateRoute path="/advert" exact>
+              <NewAdvertPage />
+            </PrivateRoute>
+            <PrivateRoute path="/advert/:advertId" exact component={AdvertPage} />
             <Route path="/login" exact>
               {({ history }) => (
                 <LoginPage onLogin={this.handleLogin} history={history} />
@@ -67,13 +76,17 @@ class App extends React.Component {
             </Route>
           </Switch>
         </div>
-      </AuthContextProvider>
+      </AuthContext.Provider>
+
     );
   }
 }
 
+
+
 App.propTypes = {
   initiallyLooggedUserId: T.string,
 };
+
 
 export default App;

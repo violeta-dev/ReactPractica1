@@ -1,24 +1,23 @@
 import React from 'react';
 import classNames from 'classnames';
-import Logo from '../shared/Photo';
-import Button from '../shared/Button';
 import { Link } from 'react-router-dom';
+
 import { logout } from '../../api/auth';
-import { AuthContext } from '../App/App';
-
-
-import Icon from '../adverts/images/anuncios/iphone.png';
+import { ReactComponent as Icon } from '../../assets/twitter.svg';
 import './Header.css';
+import Button from '../shared/Button';
+import { AuthContextConsumer } from '../auth/context';
 
 const Header = ({ className, isLogged, onLogout, ...props }) => (
   <header className={classNames('header', className)} {...props}>
-    <div className="header-logo">
-      <Logo src={Icon}/>   
-      
-    </div>
+    <Link to="/">
+      <div className="header-logo">
+        <Icon width="32" height="32" />
+      </div>
+    </Link>
     <nav className="header-nav">
-    <Button as={Link} to="/advert" variant="primary" className="header-button">
-        Advert
+      <Button as={Link} to="/tweet" variant="primary" className="header-button">
+        Tweet
       </Button>
       {isLogged ? (
         <Button
@@ -32,19 +31,16 @@ const Header = ({ className, isLogged, onLogout, ...props }) => (
           Login
         </Button>
       )}
-
-
     </nav>
   </header>
 );
 
 const ConnectedToAuthHeader = props => (
-    <AuthContext.Consumer>
-      {({ isLogged, onLogout }) => (
-        <Header {...props} isLogged={isLogged} onLogout={onLogout} />
-      )}
-    </AuthContext.Consumer>
-  );
-  
-  export default ConnectedToAuthHeader;
-  
+  <AuthContextConsumer>
+    {({ isLogged, onLogout }) => (
+      <Header {...props} isLogged={isLogged} onLogout={onLogout} />
+    )}
+  </AuthContextConsumer>
+);
+
+export default ConnectedToAuthHeader;
