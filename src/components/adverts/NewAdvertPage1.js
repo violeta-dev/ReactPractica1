@@ -3,7 +3,6 @@ import Layout from '../layout';
 import { Button, Photo, Textarea } from '../shared';
 import defaultPhoto from '../../assets/default_profile.png';
 import { createAdvert } from '../../api/adverts';
-import 'antd/dist/antd.css';
 import './NewAdvertPage.css';
 import { Redirect } from 'react-router-dom';
 

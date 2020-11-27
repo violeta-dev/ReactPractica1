@@ -47,14 +47,18 @@ class NewAdvertPage extends React.Component {
 
       };
 
-  /* handleChange = ({ target: { value } }) => {
+  /*handleChange = ({ target: { value } }) => {
     this.setState({ advert: { name: value } });
-   };*/
-
-   handleChange = (event) => {
     
-    console.log(event)
-   };
+   }*/
+
+   
+
+  handleChange = event => {
+    this.setState(state => ({
+      advert: { ...state.advert, [event.target.name]: event.target.value },
+    }));
+  };
     
 
     handleSubmit = async ev => {
@@ -62,8 +66,9 @@ class NewAdvertPage extends React.Component {
         
         //ev.preventDefault();
         try {
+          console.log(advert)
           const createdAdvert = await createAdvert(advert);
-          
+          console.log(createdAdvert)
           this.setState({ createdAdvertId: createdAdvert.result._id });
         } catch (error) {
           this.setState({ error });
@@ -101,10 +106,10 @@ class NewAdvertPage extends React.Component {
             <div className="right">
               <Form {...formItemLayout}  onFinish={this.handleSubmit}>
                <Form.Item label="name">
-                  <Input  value= {name} onChange={this.handleChange}/>
+                  <Input name="name" value={name} onChange={this.handleChange}/>
                </Form.Item>
                <Form.Item label="price">
-                 <InputNumber value= {price} onChange={this.handleChange} />
+                 <InputNumber name ="price" value= {price} onChange={( value ) => this.handleChange({ target: {value, name: 'price'}})}/>
                </Form.Item>
                <Form.Item
                  name="tags"
@@ -117,16 +122,16 @@ class NewAdvertPage extends React.Component {
                   },
                 ]}
                 >
-                 <Select mode="multiple"  onChange={this.handleChange}>
-                   <Option value="work"  getValueFromEvent = {tags} onChange={this.handleChange}  >work</Option>
-                    <Option value="mobile" getValueFromEvent = {tags} onChange={this.handleChange}> mobile</Option>
-                    <Option value="lifestyle" getValueFromEvent = {tags} onChange={this.handleChange} >lifestyle</Option>
-                    <Option value="motor" getValueFromEvent = {tags} onChange={this.handleChange} >motor</Option>
+                 <Select mode="multiple" value= {tags} onChange={( value ) => this.handleChange({ target: {value, name: 'tags'}})}>
+                   <Option value="work"    >work</Option>
+                    <Option value="mobile"  > mobile</Option>
+                    <Option value="lifestyle"  >lifestyle</Option>
+                    <Option value="motor"   >motor</Option>
                   </Select>
                  </Form.Item>
                
                <Form.Item name="switch" label="Sale?" valuePropName="checked" >
-                   <Switch value= {sale} onChange={this.handleChange}/>
+                   <Switch value= {sale} onChange={( value ) => this.handleChange({ target: {value, name: 'sale'}})}/>
                </Form.Item>
                <Form.Item label="Dragger">
                  <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile} noStyle>

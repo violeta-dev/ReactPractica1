@@ -21,7 +21,8 @@ export const deleteAdvert = advertId => {
 
   export const createAdvert = advert => {
     const url = `${advertsBaseUrl}/adverts`;
-    return client.post(url, advert);
+    console.log(advert)
+    return client.post(url,advert);
   };
   
   

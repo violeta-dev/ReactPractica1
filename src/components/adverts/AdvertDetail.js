@@ -9,7 +9,7 @@ import './Advert.css';
 
  
 const Advert = ({ name, price,sale, tags, photo , _id}) => (
-
+  
   <li className="advert bordered">
 
     <div className="left">
