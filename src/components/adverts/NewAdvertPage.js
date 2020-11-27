@@ -41,7 +41,7 @@ const normFile = (e) => {
 
 class NewAdvertPage extends React.Component {
     state = {
-        advert: { name:'', price:'', tags:[],sale: false, photo: {defaultPhoto}},
+        advert: { name:'', price:'', tags:[],sale: false, photo: 'default_profile.png'},
         error: null,
         createdAdvertId: null,
 
@@ -66,9 +66,11 @@ class NewAdvertPage extends React.Component {
         
         //ev.preventDefault();
         try {
-          console.log(advert)
+          const newAdvert= {advert: {advert}}
+          console.log(newAdvert)
           const createdAdvert = await createAdvert(advert);
           console.log(createdAdvert)
+          
           this.setState({ createdAdvertId: createdAdvert.result._id });
         } catch (error) {
           this.setState({ error });

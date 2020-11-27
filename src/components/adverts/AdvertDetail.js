@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '../shared/Button';
-import defaultPhoto from '../../assets/default_profile.png';
 import T from 'prop-types';
 import { Link } from 'react-router-dom';
 import { deleteAdvert } from '../../api/adverts';
@@ -20,7 +19,7 @@ const Advert = ({ name, price,sale, tags, photo , _id}) => (
         <span className="advert-name">{name}</span>
         <span className="advert-price">Price {price} Euros</span>
         <span className="advert-separator">·</span>
-        <span>{tags[0]}  {tags[1]}  {tags[3]} {tags[4]}</span>
+        <span>{tags[0]}  {tags[1]}  {tags[2]} {tags[3]}</span>
       </div>
       <div>
         {"sale: " + sale }
@@ -48,9 +47,7 @@ Advert.propTypes = {
 
   };
   
-  Advert.defaultProps = {
-    photo: defaultPhoto,
-  };
+ 
   
 
 export default Advert;
