@@ -1,6 +1,6 @@
 import React from 'react';
 
-//import defaultPhoto from '../../assets/default_profile.png';
+import defaultPhoto from '../../assets/default_profile.png';
 
 import T from 'prop-types';
 
@@ -9,10 +9,10 @@ import './Advert.css';
 
  
 const Advert = ({ name, price,sale, tags, photo ,history, _id}) => (
-
+   
   <li className="advert bordered" onClick={() => history.push(`/advert/${_id}`)}> 
     <div className="left">
-      <Photo src={photo} alt="Photo" className="advert-photo" />
+      <Photo src={photo} className="advert-photo" />
     </div>
     <div className="right">
       <div className="advert-header">

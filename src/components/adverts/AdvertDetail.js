@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { deleteAdvert } from '../../api/adverts';
 import Photo from '../shared/Photo';
 import './Advert.css';
+import defaultPhoto from '../../assets/default_profile.png';
 
  
 const Advert = ({ name, price,sale, tags, photo , _id}) => (
@@ -12,7 +13,7 @@ const Advert = ({ name, price,sale, tags, photo , _id}) => (
   <li className="advert bordered">
 
     <div className="left">
-      <Photo src={photo} alt="Photo" className="advert-photo" />
+      <Photo src={defaultPhoto} className="advert-photo" />
     </div>
     <div className="right">
       <div className="advert-header">

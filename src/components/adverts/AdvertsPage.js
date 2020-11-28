@@ -6,7 +6,7 @@ import {Search, searchedAdvert} from './Search'
 
 
 
-console.log(searchedAdvert)
+
 
 class AdvertsPage extends React.Component{
     state = {
