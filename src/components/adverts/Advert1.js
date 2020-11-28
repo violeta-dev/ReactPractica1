@@ -29,7 +29,6 @@ const Advert = ({ name, price,sale, tags, photo ,history, _id}) => (
   </li>
   
   
-  
 
 );
 

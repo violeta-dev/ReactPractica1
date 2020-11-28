@@ -32,4 +32,5 @@
 .layout-header,
 .layout-footer {
   padding: 0 15px;
+  align-items: center;
 }

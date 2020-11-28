@@ -1,10 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-
-
 import { getAdvertDetail } from '../../api/adverts';
 import Layout from '../layout';
 import Advert from './AdvertDetail';
+
+
 
 class AdvertPage extends React.Component {
   state = {
@@ -43,6 +43,8 @@ class AdvertPage extends React.Component {
     return (
       <Layout title="Advert Detail">
         <div className="AdvertPage">{this.renderContent()}</div>
+       
+        
       </Layout>
     );
   }
