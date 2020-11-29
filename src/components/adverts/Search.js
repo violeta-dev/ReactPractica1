@@ -1,9 +1,9 @@
 import React from 'react';
-import Layout from '../layout';
+
 import { searchAdvert } from '../../api/adverts';
 import 'antd/dist/antd.css';
 import './NewAdvertPage.css';
-import { Redirect } from 'react-router-dom';
+
 import {
   Form,
   Select,
@@ -13,7 +13,7 @@ import {
   Button,
   
 } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
+
 export const searchedAdvert = ''
 const { Option } = Select;
 
@@ -36,6 +36,7 @@ export class Search extends React.Component {
         advert: { name:'', price:'100000', tags:'' ,sale: false, photo:''},
         error: null,
         createdAdvertId: null,
+        
 
       };
    
@@ -55,9 +56,11 @@ export class Search extends React.Component {
             
         
           console.log(advert.name)
-          const searchedAdvert = await searchAdvert(advert);
-          console.log(searchedAdvert)
-          return searchedAdvert
+          const searchedAdvert = await searchAdvert(advert)
+          console.log(this.props.callback(searchedAdvert))
+
+          return this.props.callback(searchedAdvert)
+        
           
           
           
@@ -68,9 +71,15 @@ export class Search extends React.Component {
       };
     
     
-    componentDidMount() {
+    /*componentDidMount() {
       //this.textAreaRef.current.focus();
-    }
+    }*/
+    async componentDidMount() {
+        console.log(searchedAdvert)
+      if (searchedAdvert){
+        this.setState({ adverts: searchedAdvert.rows });
+  
+      }}
     
     
   render() {
@@ -79,11 +88,7 @@ export class Search extends React.Component {
         createdAdvertId,
       } = this.state;
     
-    
-    if (createdAdvertId) {
-      console.log(name)
-      return <Redirect to={`/adverts`} />;
-    } else{
+
 
     
   
@@ -142,11 +147,12 @@ export class Search extends React.Component {
                  
             
               </Form>
+              
             </div>
           </div>
         </div>
       );
-   }
+   
   }
 }
 
