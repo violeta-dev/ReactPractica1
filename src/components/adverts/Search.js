@@ -33,7 +33,7 @@ const formItemLayout = {
 
 export class Search extends React.Component {
     state = {
-        advert: { name:'', price:'100000', tags:'' ,sale: false, photo:''},
+        advert: { name:'', price:'-100000', tags:'' ,sale: false, photo:''},
         error: null,
         createdAdvertId: null,
         
@@ -58,23 +58,19 @@ export class Search extends React.Component {
           console.log(advert.name)
           const searchedAdvert = await searchAdvert(advert)
           console.log(searchedAdvert)
-          console.log(this.props.callback(searchedAdvert))
+       
           
           return this.props.callback(searchedAdvert)
         
           
-          
-          
-          //this.setState({ createdAdvertId: createdAdvert.result._id });
+        
         } catch (error) {
           this.setState({ error });
         }
       };
     
     
-    /*componentDidMount() {
-      //this.textAreaRef.current.focus();
-    }*/
+
     async componentDidMount() {
         console.log(searchedAdvert)
       if (searchedAdvert){

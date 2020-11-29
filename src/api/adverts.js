@@ -1,5 +1,5 @@
 import client from './client';
-import Qs from 'qs';
+import queryString from 'query-string';
 
 
 //mi servidor node de anuncios est-a en localhost:3000/apv1/adverts
@@ -7,33 +7,19 @@ import Qs from 'qs';
 
 const advertsBaseUrl = '/apiv1';
 
-export const searchAdvert = advert=> {
- //?name=${advert.name}&price=${-advert.price}&tags=${advert.tags}&sale=${advert.sale}`
- console.log(advert)
- const search_tags= advert.tags
- const string = search_tags.join(",")
-  const url = `${advertsBaseUrl}/adverts`
-  if (string){
 
-    return client.get(url, {params:{
-      name:advert.name,
-      price:-advert.price,
-      sale:advert.sale,
-      tags:string,
-  
-     }});
-  }else{
-    return client.get(url, {params:{
-      name:advert.name,
-      price:-advert.price,
-      sale:advert.sale,
-     
-  
-     }});
-
-  }
+export const searchAdvert = filters => {
  
+  const filterValue = queryString.stringify(
+    Object.fromEntries(
+      Object.entries(filters).filter(value => (value[1] ? value : null))
+    )
+  );
+ 
+  return client.get(`${advertsBaseUrl}/adverts?${filterValue}`);
 };
+
+
 
 export const getLatestAdverts = () => {
   const url = `${advertsBaseUrl}/adverts`;
