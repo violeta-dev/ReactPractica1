@@ -13,9 +13,9 @@ class AdvertsPage extends React.Component{
         adverts: null,
         searchedAdvert: null,
     };
-    getResponse(searchedAdvert){
-      this.state({searchedAdvert})
-      console.log(searchedAdvert)
+  getResponse(searchedAdvert){
+    this.setState({ adverts: searchedAdvert.rows });
+      console.log(searchedAdvert.rows)
     }
     async componentDidMount() {
       
@@ -30,8 +30,7 @@ class AdvertsPage extends React.Component{
     }
      
      
-     //const searchedverts= await searchAdvert();
-    // this.setState({ searchedverts: searchedverts.rows });
+   
     }
 
       componentWillUnmount() {
@@ -58,17 +57,15 @@ class AdvertsPage extends React.Component{
         ))
       
       
-      //return adverts.map(advert => <Advert key={advert._id} {...advert} />);
-      
   
     };
     render() {
         
         return (
           <Layout title="List of Adverts">
-           <div className="Search" callback={this.getResponse.bind(this)}> <Search /></div>
+           <div className="Search" > <Search  callback={this.getResponse.bind(this)}/></div>
           <div className="AdvertsPage">{this.renderContent()}</div>
-          <p> Result {this.state.searchedAdvert}</p>
+          
         </Layout>
   
         );

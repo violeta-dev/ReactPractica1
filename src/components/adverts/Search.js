@@ -57,8 +57,9 @@ export class Search extends React.Component {
         
           console.log(advert.name)
           const searchedAdvert = await searchAdvert(advert)
+          console.log(searchedAdvert)
           console.log(this.props.callback(searchedAdvert))
-
+          
           return this.props.callback(searchedAdvert)
         
           
